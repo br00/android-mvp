@@ -16,6 +16,8 @@ In Android we have a problem arising from the fact that Android activities are c
 There are many variations of MVP and everyone can adjust the pattern idea to their needs and the way they feel more comfortable. The pattern varies **depending basically on the amount of responsibilities that we delegate to the presenter**.
 Is the view responsible to enable or disable a progress bar, or should it be done by the presenter? And who decides which actions should be shown in the Action Bar? That’s where the tough decisions begin. An other difficult is that in Android we have the xml file to create the layout of view. So, we have the class java View and xml to create the layout (view). How can I use the class View if we create the layouts using xml?
 
+![Alt text](https://s31.postimg.org/74sdnobob/mvp.png "mvp")
+
 #### The presenter
 The presenter is responsible to act as the middle man between view and model. It retrieves data from the model and returns it formatted to the view. But unlike the typical MVC, it also decides what happens when you interact with the view.
 * Middle man between the Model and View
@@ -43,9 +45,70 @@ So it's time to call the pattern VPI and not MVP!
 ## Example
 It's a simple app with a fake authentication with possibility to do a login and logout. 
 
+![Alt text](https://s31.postimg.org/bhkhzi0gb/vpi01.png "login")
+![Alt text](https://s32.postimg.org/fpijaf0j9/vpi02.png "main")
+
 # Suggestions
+Start to create the main Interface and write all methods thinking to the flow view -> presenter -> interactor and vice versa. 
+E.G. in my ILoginVPI interface:
+
+```java
+public interface ILoginVPI {
+
+    /**
+     * Presenter operations available from the View
+     *      View -> Presenter
+     */
+    interface PresenterActions{
+        void onCreate();
+        void onResume();
+        void onStop();
+        void onDestroy();
+        void requestAuthentication(String typedPassword);
+        void requestLogout();
+    }
+
+    /**
+     * Interactor operations available from the Presenter
+     *      Presenter -> Interactor
+     */
+    interface InteractorActions {
+        void authenticate(String typedPassword);
+        void enrollNewUser();
+        void resetPassword();
+        void logout();
+        void checkStage();
+        void onDestroy();
+    }
+
+    /**
+     * Presenter operations available from the Interactor
+     *      Interactor -> Presenter
+     */
+    interface RequiredPresenterActions {
+        void onAuthenticated();
+        void onPasswordResetted();
+        void onUpdate(LoginInteractor.Stage aStage);
+        void onError(String errorMsg);
+    }
+
+    /**
+     * View operations available from the Presenter
+     *      Presenter -> View
+     */
+    interface RequiredViewActions {
+        void goToHome();
+        void updateUI(LoginInteractor.Stage aStage);
+        void showError(String msg);
+    }
+
+}
+```
+
+
 Write code in MVP,VPI, etc is harder than write the normal code. You have tree times more methods and the beginning could be very slow, but the maintainability and the fun have no price.
 So happy coding;
+
 
 #### Ref
 * http://fernandocejas.com/2014/09/03/architecting-android-the-clean-way/
