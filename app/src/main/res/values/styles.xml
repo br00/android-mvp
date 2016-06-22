@@ -1,0 +1,29 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionModeOverlay">true</item>
+    </style>
+
+    <style name="MButton" parent="Base.TextAppearance.AppCompat.Button">
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:textColor">@color/lightText</item>
+    </style>
+    <style name="MEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/darkText</item>
+    </style>
+    <style name="MTextView">
+        <item name="android:textColor">@color/darkText</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+    </style>
+
+</resources>
